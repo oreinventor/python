@@ -16,7 +16,7 @@ def getvideo(link,quality):
     )
     filename = format(video_info['title']) + ".mp4"
     options={
-        'format':'bestaudio/best',
+        'format':'bestaudio',
         'keepvideo':False,
         'outtmpl':filename,
         'postprocessors': [{

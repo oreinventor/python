@@ -10,7 +10,7 @@ def running_workers(thread_pool):
 
 def worker_thread(url,thread_pool):
 	options={
-		'format':'worst_audio/worst',
+		'format':'worstaudio',
                 'quiet':True,
          #'outtmpl':folder_path+'/%(title)s.mp3', 
          'outtmpl':folder_path+'/%(title)s.%(ext)s',

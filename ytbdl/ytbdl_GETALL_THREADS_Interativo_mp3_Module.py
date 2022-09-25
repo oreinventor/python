@@ -11,28 +11,46 @@ def running_workers(thread_pool):
 
 def worker_thread(url,thread_pool):
 	options={
-		'format':'bestaudio',
+		'format':quality+'audio',
                 'quiet':True,
          #'outtmpl':folder_path+'/%(title)s.mp3', 
-         'outtmpl':folder_path+'/%(title)s.%(ext)s',
+         'outtmpl':folder+'/%(title)s.%(ext)s',
          'postprocessors':[{
          'key':'FFmpegExtractAudio',
          'preferredcodec':'mp3',
-         'preferredquality':'160',
+         'preferredquality':bitrate,
          }],
          }
 	with youtube_dl.YoutubeDL(options) as ydl:
 		ydl.download([url])
 	thread_pool.pop()
 
+threads=0
+quality,url,folder='','',''
+bitrate='8'
 
-threads=int(input('Enter no threads : '))
-url=input('Enter URL : ')
-playliststart=input('Enter playlist # start : ')
-folder_path=input('Enter destination folder: ')
+for i in range(1,len(sys.argv)):
+    #print(sys.argv[i])
+    if sys.argv[i]=='-threads':
+        threads=int(sys.argv[i+1])
+    if sys.argv[i]=='-folder':
+        folder=sys.argv[i+1]
+    if sys.argv[i]=='-url':
+        url=sys.argv[i+1]
+    if sys.argv[i]=='-quality':
+        quality=sys.argv[i+1]
+
+#print(threads,quality,url,folder)
+
+playliststart=0
+
+if quality=='best':
+    bitrate='160'
+else:
+    bitrate='56'
 
 with youtube_dl.YoutubeDL() as ydl:
-	linkList = ydl.extract_info(url,download=False,ignore-errors=True);
+    linkList = ydl.extract_info(url, download=False);
 
 thread_pool=set()
 
